@@ -63,6 +63,29 @@ servers cache static content like images, videos, CSS, JavaScript files, etc.
   * Appropriate cache expiration
   * CDN fallback
   * Invalidating content
+  
+## Stateful vs Stateless Architecture
+
+## geoDNS-routed, aka. geo-routed
+* geoDNS is a DNS service that allows domain names to be resolved to IP addresses based on the location of a user
+* Some technical challenges in multi-data center setup:
+  * Traffic redirection: Effective tools are needed to direct traffic to the correct data center.
+GeoDNS can be used to direct traffic to the nearest data center depending on where a user
+is located
+  * Data synchronization: Users from different regions could use different local databases or
+caches. In failover cases, traffic might be routed to a data center where data is unavailable.
+A common strategy is to replicate data across multiple data centers. A previous study
+shows how Netflix implements asynchronous multi-data center replication
+  * Test and deployment: With multi-data center setup, it is important to test your
+website/application at different locations. Automated deployment tools are vital to keep
+services consistent through all the data centers
+---
+### To further scale our system, we need to decouple different components of the system so they can be scaled independently. Messaging queue is a key strategy employed by many real-world distributed systems to solve this problem
+---
+## Message queue
+* A message queue is a durable component, stored in memory, that supports asynchronous communication
+* Decoupling makes the message queue a preferred architecture for building a scalable and reliable application
+
 ## Logging, mertics, monitoring
 * Logs are important because they help to identify errors and problems
 in the system
