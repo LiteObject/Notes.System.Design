@@ -21,6 +21,40 @@ systems, usually with a master/slave relationship between the original (master) 
 * A master database generally only supports write operations. A slave database gets copies of
 the data from the master database and only supports read operations
 
+* Advantages of database replication:
+  *  Better performance: In the master-slave model, all writes and updates happen in master
+nodes; whereas, read operations are distributed across slave nodes. This model improves
+performance because it allows more queries to be processed in parallel
+  * Reliability: If one of your database servers is destroyed by a natural disaster, such as a
+typhoon or an earthquake, data is still preserved. You do not need to worry about data loss
+because data is replicated across multiple locations
+  * High availability: By replicating data across different locations, your website remains in
+operation even if a database is offline as you can access data stored in another database
+server
+
+## Cache
+>A cache is a temporary storage area that stores the result of expensive responses or frequently
+accessed data in memory so that subsequent requests are served more quickly
+* Considerations for using cache
+  *  Decide when to use cache. Consider using cache when data is read frequently but
+modified infrequently
+  * Expiration policy. It is a good practice to implement an expiration policy. Once cached
+data is expired, it is removed from the cache. When there is no expiration policy, cached
+data will be stored in the memory permanently. It is advisable not to make the expiration
+date too short as this will cause the system to reload data from the database too frequently.
+Meanwhile, it is advisable not to make the expiration date too long as the data can become
+stale.
+  * Consistency: This involves keeping the data store and the cache in sync. Inconsistency
+can happen because data-modifying operations on the data store and cache are not in a
+single transaction
+  * Mitigating failures: A single cache server represents a potential single point of failure
+(SPOF). As a result, multiple cache servers across different data centers are recommended to avoid SPOF
+  * Eviction Policy: Once the cache is full, any requests to add items to the cache might
+cause existing items to be removed. This is called cache eviction. Least-recently-used
+(LRU) is the most popular cache eviction policy. Other eviction policies, such as the Least
+Frequently Used (LFU) or First in First Out (FIFO), can be adopted to satisfy different use
+cases  
+
 ## Content delivery network (CDN)
 * A CDN is a network of geographically dispersed servers used to deliver static content. CDN
 servers cache static content like images, videos, CSS, JavaScript files, etc.
