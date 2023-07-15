@@ -1,4 +1,4 @@
-# Notes: System Design
+# CHAPTER 1: SCALE FROM ZERO TO MILLIONS OF USERS
 
 ## Vertical scaling vs horizontal scaling
 >Vertical scaling, referred to as “scale up”, means the process of adding more power (CPU,
@@ -95,3 +95,57 @@ the health status of the system
   * Aggregated level metrics: For example, the performance of the entire database tier, cache
 tier, etc.
   *  Key business metrics: daily active users, retention, revenue, etc.
+
+##  Database scaling
+There are two broad approaches for database scaling: vertical scaling and horizontal scaling.
+
+### Vertical scaling
+Vertical scaling, also known as scaling up, is the scaling by adding more power (CPU, RAM, DISK, etc.) to an existing machine.
+
+Vertical scaling comes with some serious drawbacks:
+- You can add more CPU, RAM, etc. to your database server, but there are hardware limits. If you have a large user base, a single server is not enough.
+-  Greater risk of single point of failures.
+- The overall cost of vertical scaling is high. Powerful servers are much more expensive.
+
+### Horizontal scaling
+Horizontal scaling, also known as sharding, is the practice of adding more servers.
+
+Sharding separates large databases into smaller, more easily managed parts called shards. Each shard shares the same schema, though the actual data on each shard is unique to the shard.
+
+Anytime you access data, a hash function is used to find the
+corresponding shard.
+
+The most important factor to consider when implementing a sharding strategy is the choice of the sharding key. Sharding key (known as a partition key) consists of one or more columns that determine how data is distributed.
+
+A sharding key allows you to retrieve and modify data efficiently by routing database queries to the correct database.
+
+When choosing a sharding key, one of the most important criteria is to choose a key that can evenly distributed data.
+
+Sharding is a great technique to scale the database but it is far from a perfect solution. It introduces complexities and new challenges to the system:
+
+- __Resharding data__: Resharding data is needed when 
+  - 1: A single shard could no longer hold more data due to rapid growth. 
+  - 2: Certain shards might experience shard exhaustion faster than others due to uneven data distribution. When shard exhaustion happens, it requiresupdating the sharding function and moving data around.
+
+- __Celebrity problem__: This is also called a hotspot key problem. Excessive access to a specific shard could cause server overload.
+
+- __Join and de-normalization__: Once a database has been sharded across multiple servers, it is hard to perform join operations across database shards. A common workaround is to de-normalize the database so that queries can be performed in a single table.
+
+## Summary of how we scale system to support millions of users:
+- Keep web tier stateless
+- Build redundancy at every tier
+- Cache data as much as you can
+- Support multiple data centers
+- Host static assets in CDN
+- Scale your data tier by sharding
+- Split tiers into individual services
+- Monitor your system and use automation tools
+
+
+# CHAPTER 2: BACK-OF-THE-ENVELOPE ESTIMATION
+
+
+
+
+
+
