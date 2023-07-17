@@ -144,8 +144,24 @@ Sharding is a great technique to scale the database but it is far from a perfect
 
 # CHAPTER 2: BACK-OF-THE-ENVELOPE ESTIMATION
 
+## Power of two
 
+## Latency numbers every programmer should know
 
+- ns = nanosecond, µs = microsecond, ms = millisecond
+- 1 ns = 10^-9 seconds
+- 1 µs= 10^-6 seconds = 1,000 ns
+- 1 ms = 10^-3 seconds = 1,000 µs = 1,000,000 ns
 
+### conclusions:
+- Memory is fast but the disk is slow.
+- Avoid disk seeks if possible.
+- Simple compression algorithms are fast.
+- Compress data before sending it over the internet if possible.
+- Data centers are usually in different regions, and it takes time to send data between them.
 
+## Availability numbers
 
+High availability is measured as a percentage, with 100% means a service that has 0 downtime. Most services fall between 99% and 100%.
+
+A service level agreement (SLA) formally defines the level of uptime your service will deliver. Cloud providers Amazon [4], Google [5] and Microsoft [6] set their SLAs at 99.9% or above. Uptime is traditionally measured in nines. The more the nines, the better.
